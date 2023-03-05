@@ -10,11 +10,16 @@ java {
 
 dependencies {
 
-    implementation project(path: ':domain')
+    implementation project(path: ':data')
 
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.0'
     implementation 'javax.inject:javax.inject:1'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.7.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'
