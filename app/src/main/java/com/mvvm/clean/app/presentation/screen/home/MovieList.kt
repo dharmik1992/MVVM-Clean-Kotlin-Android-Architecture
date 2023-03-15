@@ -3,6 +3,7 @@ package com.mvvm.clean.app.presentation.screen.home
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,48 +15,54 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.mvvm.clean.app.BuildConfig
+import com.mvvm.clean.app.ui.theme.ItemBackgroundColor
 import com.mvvm.clean.app.ui.theme.MVVMCleanKotlinAndroidArchitectureTheme
+import com.mvvm.clean.domain.models.Movie
 
 @Composable
-fun MovieListItem() {
+fun MovieListItem(movie: Movie?) {
     Card(
         shape = RoundedCornerShape(8.dp),
         modifier = Modifier
+            .height(175.dp)
             .fillMaxWidth()
-            .wrapContentHeight(align = Alignment.Top, unbounded = true)
-            .padding(start = 12.dp, top = 8.dp, end = 12.dp, bottom = 8.dp),
+            .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 4.dp),
         elevation = 5.dp,
-        backgroundColor = Color.LightGray
+        backgroundColor = MaterialTheme.colors.ItemBackgroundColor
     ) {
         Row(
             horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.CenterVertically,
+            verticalAlignment = Alignment.Top,
             modifier = Modifier
+                .height(IntrinsicSize.Max)
                 .fillMaxWidth()
         ) {
-            MovieItemImage()
-            MovieItemDetails()
+            movie?.let {
+                MovieItemImage(movie.poster_path)
+                MovieItemDetails(movie)
+            }
         }
     }
 }
 
 @Composable
-fun MovieItemImage() {
+fun MovieItemImage(posterPath: String) {
     Card(
         elevation = 5.dp,
         modifier = Modifier
-            .padding(5.dp)
+            .padding(4.dp)
+            .width(120.dp)
+            .wrapContentHeight()
     ) {
         AsyncImage(
-            model = "",
+            model = BuildConfig.POSTER_URL + posterPath,
             contentDescription = "",
-            modifier = Modifier
-                .padding(4.dp)
-                .width(120.dp)
-                .wrapContentHeight(),
             contentScale = ContentScale.Crop,
             filterQuality = FilterQuality.None,
         )
@@ -63,28 +70,29 @@ fun MovieItemImage() {
 }
 
 @Composable
-fun MovieItemDetails() {
+fun MovieItemDetails(movie: Movie) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .height(IntrinsicSize.Max)
+            .padding(6.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
         Text(
-            text = "The Matrix",
-            style = TextStyle(color = Color.Black, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+            text = movie.original_title,
+            style = MaterialTheme.typography.body1
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = "The Matrix is an American media franchise consisting of four feature films, beginning with The Matrix and continuing with three sequels, The Matrix Reloaded, The Matrix Revolutions, and The Matrix Resurrections.",
-            style = TextStyle(color = Color.Black, fontSize = 16.sp),
+            text = movie.overview,
+            style = MaterialTheme.typography.body2,
             maxLines = 4,
             overflow = TextOverflow.Ellipsis
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = "* 6.5",
+            text = movie.vote_average.toString(),
             style = TextStyle(color = Color.Black, fontSize = 12.sp, fontWeight = FontWeight.Bold)
         )
     }
@@ -94,6 +102,6 @@ fun MovieItemDetails() {
 @Composable
 fun DefaultPreview() {
     MVVMCleanKotlinAndroidArchitectureTheme {
-      MovieListItem()
+        MovieListItem(null)
     }
 }

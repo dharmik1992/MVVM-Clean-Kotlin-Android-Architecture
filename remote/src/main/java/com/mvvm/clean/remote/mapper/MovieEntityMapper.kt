@@ -2,8 +2,9 @@ package com.mvvm.clean.remote.mapper
 
 import com.mvvm.clean.data.models.MovieEntity
 import com.mvvm.clean.remote.models.MovieModel
+import javax.inject.Inject
 
-class MovieEntityMapper : RemoteMapper<MovieModel,MovieEntity> {
+class MovieEntityMapper @Inject constructor(): RemoteMapper<MovieModel,MovieEntity> {
     override fun mapFromModel(type: MovieModel): MovieEntity {
         return MovieEntity(
                 adult=type.adult,

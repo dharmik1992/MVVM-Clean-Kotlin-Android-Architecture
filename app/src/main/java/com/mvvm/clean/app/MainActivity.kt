@@ -3,28 +3,25 @@ package com.mvvm.clean.app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
-import com.mvvm.clean.app.presentation.screen.home.HomeScreen
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.mvvm.clean.app.presentation.navigation.NavGraph
 import com.mvvm.clean.app.ui.theme.MVVMCleanKotlinAndroidArchitectureTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private lateinit var navController: NavHostController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MVVMCleanKotlinAndroidArchitectureTheme {
-                HomeScreen()
+                navController = rememberNavController()
+                NavGraph(navController = navController)
             }
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MVVMCleanKotlinAndroidArchitectureTheme {
-        HomeScreen()
-    }
-}

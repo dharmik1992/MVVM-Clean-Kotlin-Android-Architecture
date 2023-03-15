@@ -13,7 +13,7 @@ class MovieRepositoryImp @Inject constructor(
     private val movieMapper: MovieMapper
 ) : MovieRepository {
     override suspend fun getPopularMovies(): Flow<List<Movie>> = flow {
-        val isCached = movieDataSourceFactory.getCachedDataSource().isCached()
+        val isCached = false
         val movieList =
             movieDataSourceFactory.getDataStore(isCached).getPopularMovies().map { movieEntity ->
                 movieMapper.mapFromEntity(movieEntity)

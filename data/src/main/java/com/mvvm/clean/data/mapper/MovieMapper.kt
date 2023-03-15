@@ -2,8 +2,9 @@ package com.mvvm.clean.data.mapper
 
 import com.mvvm.clean.data.models.MovieEntity
 import com.mvvm.clean.domain.models.Movie
+import javax.inject.Inject
 
-class MovieMapper : Mapper<MovieEntity, Movie> {
+class MovieMapper @Inject constructor() : Mapper<MovieEntity, Movie> {
     override fun mapFromEntity(type: MovieEntity): Movie {
        return Movie(
            adult=type.adult,
