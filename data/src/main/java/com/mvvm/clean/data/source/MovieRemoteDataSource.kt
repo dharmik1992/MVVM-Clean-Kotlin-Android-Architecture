@@ -11,6 +11,10 @@ class MovieRemoteDataSource @Inject constructor(private val movieRemote: MovieRe
         return movieRemote.getPopularMovies()
     }
 
+    override suspend fun saveMoviesInCache(popularMovieList: List<MovieEntity>) {
+        throw UnsupportedOperationException("Save movie is not supported for RemoteDataSource.")
+    }
+
     override suspend fun isCached(): Boolean {
         throw UnsupportedOperationException("Cache is not supported for RemoteDataSource.")
     }

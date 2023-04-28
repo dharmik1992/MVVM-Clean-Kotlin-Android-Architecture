@@ -5,12 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.mvvm.clean.cache.dao.CacheDao
-import com.mvvm.clean.cache.models.Movie
+import com.mvvm.clean.cache.models.MovieCacheEntity
 import com.mvvm.clean.cache.utils.CacheConstants
 import com.mvvm.clean.cache.utils.Migrations
 import javax.inject.Inject
 
-@Database(entities = [Movie::class], version = Migrations.DB_VERSION, exportSchema = false)
+@Database(entities = [MovieCacheEntity::class], version = Migrations.DB_VERSION, exportSchema = false)
 abstract class LocalDatabase @Inject constructor() : RoomDatabase() {
 
     abstract fun cacheDao(): CacheDao

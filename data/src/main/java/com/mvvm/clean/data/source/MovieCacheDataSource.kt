@@ -11,6 +11,11 @@ class MovieCacheDataSource @Inject constructor(private val movieCache: MovieCach
         return movieCache.getPopularMovies()
     }
 
+    override suspend fun saveMoviesInCache(popularMovieList: List<MovieEntity>) {
+        movieCache.saveMoviesInCache(popularMovieList)
+        movieCache.setLastCacheTime(System.currentTimeMillis())
+    }
+
     override suspend fun isCached(): Boolean {
         return movieCache.isCached()
     }

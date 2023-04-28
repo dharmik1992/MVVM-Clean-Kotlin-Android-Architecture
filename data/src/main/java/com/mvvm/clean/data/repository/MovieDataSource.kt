@@ -7,5 +7,6 @@ interface MovieDataSource {
     suspend fun getPopularMovies() : List<MovieEntity>
 
     //cache
+    suspend fun saveMoviesInCache(popularMovieList: List<MovieEntity>)
     suspend fun isCached(): Boolean
 }

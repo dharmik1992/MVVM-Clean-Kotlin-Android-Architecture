@@ -1,7 +1,6 @@
 package com.mvvm.clean.app.di
 
 import android.content.Context
-import androidx.room.RoomDatabase
 import com.mvvm.clean.cache.dao.CacheDao
 import com.mvvm.clean.cache.database.LocalDatabase
 import com.mvvm.clean.cache.repository.MovieCacheImp
