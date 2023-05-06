@@ -7,10 +7,12 @@ import com.mvvm.clean.remote.mapper.MovieEntityMapper
 import javax.inject.Inject
 
 class MovieRemoteImp @Inject constructor(
-    private val apiService: APIService, private val movieEntityMapper: MovieEntityMapper
+    private val apiService: APIService,
+    private val movieEntityMapper: MovieEntityMapper,
+    private val apiKey: String
 ) : MovieRemote {
     override suspend fun getPopularMovies(): List<MovieEntity> {
-        return apiService.getPopularMovies("3191b5978959810071d6369865507c05").movieModel.map { movieModel ->
+        return apiService.getPopularMovies(apiKey).movieModel.map { movieModel ->
             movieEntityMapper.mapFromModel(movieModel)
         }
     }

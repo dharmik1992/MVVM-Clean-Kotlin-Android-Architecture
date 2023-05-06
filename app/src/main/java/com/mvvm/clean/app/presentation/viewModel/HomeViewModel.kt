@@ -1,7 +1,6 @@
 package com.mvvm.clean.app.presentation.screen.home
 
 import com.mvvm.clean.app.presentation.utils.CoroutineContextProvider
-import com.mvvm.clean.app.presentation.utils.ExceptionHandler
 import com.mvvm.clean.app.presentation.viewModel.BaseViewModel
 import com.mvvm.clean.domain.interactors.GetPopularMovieListUseCase
 import com.mvvm.clean.domain.models.Movie

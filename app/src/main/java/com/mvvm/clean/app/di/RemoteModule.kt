@@ -23,6 +23,12 @@ object RemoteModule {
 
     @Provides
     @Singleton
+    fun provideAPIKey() : String{
+        return BuildConfig.API_KEY
+    }
+
+    @Provides
+    @Singleton
     fun provideMovieRemote(movieRemoteImp: MovieRemoteImp) : MovieRemote{
         return movieRemoteImp
     }

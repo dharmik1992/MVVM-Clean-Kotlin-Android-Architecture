@@ -1,7 +1,6 @@
 package com.mvvm.clean.remote.api
 
 import com.mvvm.clean.remote.models.MovieDataModel
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
