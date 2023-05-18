@@ -13,15 +13,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.mvvm.clean.app.presentation.utils.ExceptionHandler
+import com.mvvm.clean.app.presentation.viewModel.HomeViewModel
+import com.mvvm.clean.app.presentation.viewModel.MovieUIStateModel
 
 import com.mvvm.clean.app.ui.theme.AppContentColor
 import com.mvvm.clean.app.ui.theme.AppThemeColor
-import com.mvvm.clean.app.ui.theme.MVVMCleanKotlinAndroidArchitectureTheme
 import com.mvvm.clean.domain.models.Movie
 
 @Composable
