@@ -48,8 +48,10 @@ dependencies {
     implementation "androidx.room:room-paging:$room_version"
 
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'
-    testImplementation 'org.mockito:mockito-inline::2.13.0'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
     testImplementation 'org.assertj:assertj-core:3.11.1'
+    testImplementation 'androidx.test:core:1.1.0'
+    testImplementation 'androidx.test.ext:junit:1.1.0'
+    testImplementation 'org.robolectric:robolectric:4.5.1'
+
 }

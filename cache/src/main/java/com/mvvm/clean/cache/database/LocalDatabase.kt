@@ -10,7 +10,11 @@ import com.mvvm.clean.cache.utils.CacheConstants
 import com.mvvm.clean.cache.utils.Migrations
 import javax.inject.Inject
 
-@Database(entities = [MovieCacheEntity::class], version = Migrations.DB_VERSION, exportSchema = false)
+@Database(
+    entities = [MovieCacheEntity::class],
+    version = Migrations.DB_VERSION,
+    exportSchema = false
+)
 abstract class LocalDatabase @Inject constructor() : RoomDatabase() {
 
     abstract fun cacheDao(): CacheDao
