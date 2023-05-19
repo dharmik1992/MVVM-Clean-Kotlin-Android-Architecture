@@ -5,7 +5,6 @@ import com.squareup.moshi.Json
 data class MovieModel(
     val adult: Boolean,
     val backdrop_path: String,
-    val genre_ids: List<Int>,
     @field:Json(name = "id")
     val movieId: Int,
     val original_language: String,
