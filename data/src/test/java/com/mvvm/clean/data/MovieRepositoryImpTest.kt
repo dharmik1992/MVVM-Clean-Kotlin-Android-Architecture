@@ -1,6 +1,7 @@
 package com.mvvm.clean.data
 
 import com.mvvm.clean.data.fakes.FakeMovieListData
+import com.mvvm.clean.data.mapper.MovieDetailMapper
 import com.mvvm.clean.data.mapper.MovieMapper
 import com.mvvm.clean.data.repository.MovieDataSource
 import com.mvvm.clean.data.source.MovieDataSourceFactory
@@ -28,13 +29,17 @@ class MovieRepositoryImpTest : DataBaseTest() {
     lateinit var movieMapper: MovieMapper
 
     @Mock
+    lateinit var movieDetailMapper: MovieDetailMapper
+
+    @Mock
     lateinit var movieDataSource: MovieDataSource
 
     lateinit var movieRepositoryImp: MovieRepositoryImp
 
     @Before
     fun setup() {
-        movieRepositoryImp = MovieRepositoryImp(movieDataSourceFactory, movieMapper)
+        movieRepositoryImp =
+            MovieRepositoryImp(movieDataSourceFactory, movieMapper, movieDetailMapper)
     }
 
     @Test

@@ -2,6 +2,7 @@ package com.mvvm.clean.remote
 
 import com.mvvm.clean.remote.api.APIService
 import com.mvvm.clean.remote.fakes.FakeRemoteMovieData
+import com.mvvm.clean.remote.mapper.MovieDetailEntityMapper
 import com.mvvm.clean.remote.mapper.MovieEntityMapper
 import com.mvvm.clean.remote.repository.MovieRemoteImp
 import com.mvvm.clean.remote.utils.RemoteBaseTest
@@ -30,12 +31,16 @@ class MovieRemoteImpTest : RemoteBaseTest() {
     @Mock
     lateinit var movieEntityMapper: MovieEntityMapper
 
+    @Mock
+    lateinit var movieDetailEntityMapper: MovieDetailEntityMapper
+
     private val apiKey = "8347874837483478374837"
     private lateinit var movieRemoteImp: MovieRemoteImp
 
     @Before
     fun setup() {
-        movieRemoteImp = MovieRemoteImp(apiService, movieEntityMapper, apiKey)
+        movieRemoteImp =
+            MovieRemoteImp(apiService, movieEntityMapper, movieDetailEntityMapper, apiKey)
     }
 
     @Test
