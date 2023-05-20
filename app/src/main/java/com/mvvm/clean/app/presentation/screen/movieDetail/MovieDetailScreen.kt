@@ -7,25 +7,20 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
-
 import androidx.compose.ui.graphics.Color
-
 import androidx.compose.ui.res.stringResource
-
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-
-import com.mvvm.clean.app.presentation.screen.reusableComposables.AppBar
-import com.mvvm.clean.app.presentation.screen.reusableComposables.LoadingScreen
-import com.mvvm.clean.app.presentation.screen.reusableComposables.ShowSnackBar
+import com.mvvm.clean.app.R
+import com.mvvm.clean.app.presentation.screen.AppBar
+import com.mvvm.clean.app.presentation.screen.LoadingScreen
+import com.mvvm.clean.app.presentation.screen.ShowSnackBar
 import com.mvvm.clean.app.presentation.utils.ExceptionHandler
 import com.mvvm.clean.app.presentation.viewModel.MovieDetailUIStateModel
 import com.mvvm.clean.app.presentation.viewModel.MovieDetailViewModel
 import com.mvvm.clean.app.ui.theme.AppContentColor
 import com.mvvm.clean.app.ui.theme.AppThemeColor
-
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -52,7 +47,7 @@ fun MovieDetailScreen(
 
     Scaffold(
         topBar = {
-            AppBar("Detail Screen", Icons.Default.ArrowBack) {
+            AppBar(stringResource(id = R.string.app_detail_screen_title), Icons.Default.ArrowBack) {
                 navController?.navigateUp()
             }
         },
@@ -62,13 +57,7 @@ fun MovieDetailScreen(
         when (uiState) {
             is MovieDetailUIStateModel.Loading -> LoadingScreen()
             is MovieDetailUIStateModel.Success -> MovieDetail(uiState.data)
-            is MovieDetailUIStateModel.Error -> ShowSnackBar(
-                errorMessage = stringResource(
-                    id = ExceptionHandler.parse(
-                        uiState.error
-                    )
-                ), scaffoldState
-            )
+            is MovieDetailUIStateModel.Error -> ShowSnackBar(errorMessage = stringResource(id = ExceptionHandler.parse(uiState.error)), scaffoldState)
         }
     }
 }
