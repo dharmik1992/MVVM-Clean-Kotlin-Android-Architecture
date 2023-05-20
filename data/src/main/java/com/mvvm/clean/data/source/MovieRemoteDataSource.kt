@@ -1,5 +1,6 @@
 package com.mvvm.clean.data.source
 
+import com.mvvm.clean.data.models.MovieDetailEntity
 import com.mvvm.clean.data.models.MovieEntity
 import com.mvvm.clean.data.repository.MovieDataSource
 import com.mvvm.clean.data.repository.MovieRemote
@@ -9,6 +10,10 @@ class MovieRemoteDataSource @Inject constructor(private val movieRemote: MovieRe
     MovieDataSource {
     override suspend fun getPopularMovies(): List<MovieEntity> {
         return movieRemote.getPopularMovies()
+    }
+
+    override suspend fun getMovieDetails(movieId: Int): MovieDetailEntity {
+        return movieRemote.getMovieDetails(movieId)
     }
 
     override suspend fun saveMoviesInCache(popularMovieList: List<MovieEntity>) {

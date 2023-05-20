@@ -1,7 +1,7 @@
 package com.mvvm.clean.remote.mapper
 
 import com.mvvm.clean.data.models.MovieEntity
-import com.mvvm.clean.remote.models.MovieModel
+import com.mvvm.clean.remote.models.popularMovieModels.MovieModel
 import javax.inject.Inject
 
 class MovieEntityMapper @Inject constructor() : RemoteMapper<MovieModel, MovieEntity> {

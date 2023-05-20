@@ -1,4 +1,4 @@
-package com.mvvm.clean.remote.models
+package com.mvvm.clean.remote.models.popularMovieModels
 
 import com.squareup.moshi.Json
 

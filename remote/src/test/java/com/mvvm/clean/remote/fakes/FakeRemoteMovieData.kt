@@ -4,8 +4,8 @@ import com.mvvm.clean.remote.fakes.FakeValueFactory.randomBoolean
 import com.mvvm.clean.remote.fakes.FakeValueFactory.randomDouble
 import com.mvvm.clean.remote.fakes.FakeValueFactory.randomInt
 import com.mvvm.clean.remote.fakes.FakeValueFactory.randomString
-import com.mvvm.clean.remote.models.MovieDataModel
-import com.mvvm.clean.remote.models.MovieModel
+import com.mvvm.clean.remote.models.popularMovieModels.MovieDataModel
+import com.mvvm.clean.remote.models.popularMovieModels.MovieModel
 
 object FakeRemoteMovieData {
 

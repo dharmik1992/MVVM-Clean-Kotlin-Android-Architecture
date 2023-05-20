@@ -1,11 +1,8 @@
-package com.mvvm.clean.app.presentation.screen.home
+package com.mvvm.clean.app.presentation.screen.movieDetail
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -23,64 +20,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import com.mvvm.clean.app.BuildConfig
-import com.mvvm.clean.app.presentation.navigation.Screen
-import com.mvvm.clean.app.ui.theme.ItemBackgroundColor
-import com.mvvm.clean.domain.models.Movie
-import java.lang.Float.min
+import com.mvvm.clean.domain.models.MovieDetail
+import java.lang.Float
 
 @Composable
-fun MovieListScreen(
-    allPopularMovies: List<Movie>,
-    contentPaddingValues: PaddingValues,
-    navController: NavController
-) {
-    LazyColumn(
-        modifier = Modifier.padding(contentPaddingValues),
-        contentPadding = PaddingValues(horizontal = 4.dp, vertical = 4.dp)
+fun MovieDetail(movieDetail: MovieDetail) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceEvenly
     ) {
-        items(allPopularMovies.size) { movieIndex ->
-            MovieListItem(allPopularMovies[movieIndex]) {
-                navController.navigate(Screen.MovieDetails.passMovieId(allPopularMovies[movieIndex].movieId))
-            }
-        }
-    }
-}
-
-@Composable
-fun MovieListItem(movie: Movie?, onPopularMovieItemClick : () -> Unit) {
-    Card(
-        shape = RoundedCornerShape(8.dp),
-        modifier = Modifier
-            .height(175.dp)
-            .fillMaxWidth()
-            .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 4.dp)
-            .clickable { onPopularMovieItemClick.invoke()},
-        elevation = 5.dp,
-        backgroundColor = MaterialTheme.colors.ItemBackgroundColor
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.Top,
-            modifier = Modifier
-                .height(IntrinsicSize.Max)
-                .fillMaxWidth()
-        ) {
-            movie?.let {
-                MovieItemImage(movie.poster_path)
-                MovieItemDetails(movie)
-            }
-        }
+        MovieItemImage(movieDetail.backdrop_path)
+        MovieItemDetails(movieDetail)
     }
 }
 
 @Composable
 fun MovieItemImage(posterPath: String) {
     val painter = rememberAsyncImagePainter(BuildConfig.POSTER_URL + posterPath)
-
     val transition by animateFloatAsState(
         targetValue =
         if (painter.state is AsyncImagePainter.State.Success) 1f else 0f
@@ -88,9 +48,9 @@ fun MovieItemImage(posterPath: String) {
     Card(
         elevation = 5.dp,
         modifier = Modifier
-            .padding(4.dp)
-            .width(120.dp)
-            .wrapContentHeight()
+            .height(280.dp)
+            .fillMaxWidth()
+
     ) {
         Image(
             painter = painter,
@@ -98,14 +58,14 @@ fun MovieItemImage(posterPath: String) {
             modifier = Modifier
                 .scale(.8f + (.2f * transition))
                 .graphicsLayer { rotationX = (1f - transition) * 5f }
-                .alpha(min(1f, transition / .2f)),
+                .alpha(Float.min(1f, transition / .2f)),
             contentScale = ContentScale.Crop
         )
     }
 }
 
 @Composable
-fun MovieItemDetails(movie: Movie) {
+fun MovieItemDetails(movieDetail: MovieDetail) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -114,17 +74,17 @@ fun MovieItemDetails(movie: Movie) {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
-        Text(text = movie.original_title, style = MaterialTheme.typography.body1)
+        Text(text = movieDetail.original_title, style = MaterialTheme.typography.body1)
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = movie.overview,
+            text = movieDetail.overview,
             style = MaterialTheme.typography.body2,
             maxLines = 4,
             overflow = TextOverflow.Ellipsis
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = movie.vote_average.toString(),
+            text = movieDetail.popularity.toString(),
             style = TextStyle(color = Color.Black, fontSize = 12.sp, fontWeight = FontWeight.Bold)
         )
     }

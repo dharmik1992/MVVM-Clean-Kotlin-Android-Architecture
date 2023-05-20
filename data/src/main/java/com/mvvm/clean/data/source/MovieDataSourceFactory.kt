@@ -22,7 +22,7 @@ open class MovieDataSourceFactory @Inject constructor(
         return movieCacheDataSource
     }
 
-    private fun getRemoteDataSource(): MovieDataSource {
+     fun getRemoteDataSource(): MovieDataSource {
         return movieRemoteDataSource
     }
 }
