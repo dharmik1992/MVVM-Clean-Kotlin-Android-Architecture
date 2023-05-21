@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.StateFlow
 
 import javax.inject.Inject
 
-sealed class MovieDetailUIStateModel {
-    object Loading : MovieDetailUIStateModel()
-    data class Error(val error: Throwable) : MovieDetailUIStateModel()
-    data class Success(val data: MovieDetail) : MovieDetailUIStateModel()
+sealed interface MovieDetailUIStateModel {
+    object Loading : MovieDetailUIStateModel
+    data class Error(val error: Throwable) : MovieDetailUIStateModel
+    data class Success(val data: MovieDetail) : MovieDetailUIStateModel
 }
 
 @HiltViewModel

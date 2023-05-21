@@ -1,7 +1,7 @@
 package com.mvvm.clean.domain.interactor
 
 import com.mvvm.clean.domain.fakes.FakeMovieListData
-import com.mvvm.clean.domain.interactors.GetPopularMovieListUseCase
+import com.mvvm.clean.domain.interactors.GetMovieDetailsByIdUseCase
 import com.mvvm.clean.domain.repository.MovieRepository
 import com.mvvm.clean.domain.utils.DomainBaseTest
 import com.nhaarman.mockitokotlin2.*
@@ -23,45 +23,46 @@ import java.io.IOException
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
-class GetPopularMovieListTestDomain : DomainBaseTest() {
+class GetMovieDetailByIdTestDomain : DomainBaseTest() {
 
     @Mock
     lateinit var movieRepository: MovieRepository
 
-    lateinit var movieListUseCase: GetPopularMovieListUseCase
+    lateinit var movieDetailsByIdUseCase: GetMovieDetailsByIdUseCase
 
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        movieListUseCase = GetPopularMovieListUseCase(movieRepository)
+        movieDetailsByIdUseCase = GetMovieDetailsByIdUseCase(movieRepository)
     }
 
     @Test
-    fun `get popular movie should return success response with movie list`() =
+    fun `get movie details should return success response with movie data`() =
         dispatcher.runBlockingTest {
             //Arrange
-            val movieFlow = flow { emit(FakeMovieListData.getMovies(3)) }
-            whenever(movieRepository.getPopularMovies()) doReturn movieFlow
+            val movieId = 100
+            val movieDetailFlow = flow { emit(FakeMovieListData.getMovieDetail()) }
+            whenever(movieRepository.getMovieDetails(movieId)) doReturn movieDetailFlow
 
             //Act
-            val movieList = movieListUseCase.invoke(Unit).single()
+            val movieDetail = movieDetailsByIdUseCase.invoke(movieId).single()
 
             //Assert
-            assertEquals(movieList.size, 3)
-            verify(movieRepository, times(1)).getPopularMovies()
+            assertEquals(movieDetail.id, movieId)
+            verify(movieRepository, times(1)).getMovieDetails(movieId)
         }
 
     @Test
-    fun `get popular movie should return error with exception`() = dispatcher.runBlockingTest {
+    fun `get movie details should return error with exception`() = dispatcher.runBlockingTest {
         //Arrange
-        whenever(movieRepository.getPopularMovies()) doAnswer { throw IOException() }
+        val movieId = 100
+        whenever(movieRepository.getMovieDetails(movieId)) doAnswer { throw IOException() }
 
         //Act
-        launch(exceptionHandler) { movieListUseCase.invoke(Unit).single() }
+        launch(exceptionHandler) { movieDetailsByIdUseCase.invoke(movieId).single() }
 
         //Assert
         assertThat(exceptionHandler.uncaughtExceptions.first(), CoreMatchers.instanceOf(IOException::class.java))
-        verify(movieRepository, times(1)).getPopularMovies()
+        verify(movieRepository, times(1)).getMovieDetails(movieId)
     }
 }
-
