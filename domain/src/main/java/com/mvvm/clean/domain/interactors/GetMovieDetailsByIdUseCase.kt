@@ -8,10 +8,20 @@ import javax.inject.Inject
 
 typealias GetMovieDetailsBaseUseCase = BaseUseCase<Int, Flow<MovieDetail>>
 
+/**
+ * use case to get movie details based on movie Id
+ *
+ * @property movieRepository repository instance
+ */
 class GetMovieDetailsByIdUseCase @Inject constructor(private val movieRepository: MovieRepository) :
     GetMovieDetailsBaseUseCase {
 
-    override suspend fun invoke(params: Int): Flow<MovieDetail> {
-        return movieRepository.getMovieDetails(params)
-    }
+    /**
+     * Function returns a Movie detail object
+     *
+     * @param params movie id
+     * @return movie detail
+     */
+    override suspend fun invoke(params: Int) = movieRepository.getMovieDetails(params)
+
 }

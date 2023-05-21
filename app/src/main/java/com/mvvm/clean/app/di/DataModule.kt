@@ -8,6 +8,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * This file contains all the dependencies related to Data module here.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object DataModule {

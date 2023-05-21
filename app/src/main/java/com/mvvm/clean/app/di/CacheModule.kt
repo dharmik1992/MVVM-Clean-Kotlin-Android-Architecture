@@ -13,6 +13,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * This file contains all the dependencies related to Cache module here.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object CacheModule {
@@ -25,13 +28,13 @@ object CacheModule {
 
     @Provides
     @Singleton
-    fun provideCacheDao(localDatabase: LocalDatabase) : CacheDao{
+    fun provideCacheDao(localDatabase: LocalDatabase): CacheDao {
         return localDatabase.cacheDao()
     }
 
     @Provides
     @Singleton
-    fun provideCacheSharedPreferenceHelper(@ApplicationContext context: Context) : CacheSharedPreferenceHelper{
+    fun provideCacheSharedPreferenceHelper(@ApplicationContext context: Context): CacheSharedPreferenceHelper {
         return CacheSharedPreferenceHelper(context)
     }
 

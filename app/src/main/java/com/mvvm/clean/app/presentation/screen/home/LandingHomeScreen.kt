@@ -19,13 +19,19 @@ import com.mvvm.clean.app.presentation.viewModel.MovieUIStateModel
 import com.mvvm.clean.app.ui.theme.AppContentColor
 import com.mvvm.clean.app.ui.theme.AppThemeColor
 
+/**
+ * Composable function which shows popular movie list based on the current UI state
+ *
+ * @param viewModel viewModel instance
+ * @param navController navController
+ */
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel(), navController: NavController) {
 
     val systemUiController = rememberSystemUiController()
     val systemBarColor = MaterialTheme.colors.AppThemeColor
     val uiState = viewModel.popularMovieList.collectAsState().value
-    val scaffoldState : ScaffoldState = rememberScaffoldState()
+    val scaffoldState: ScaffoldState = rememberScaffoldState()
 
     SideEffect {
         systemUiController.setStatusBarColor(
@@ -39,10 +45,9 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel(), navController: NavCon
 
     Scaffold(
         topBar = {
-          AppBar(
-                stringResource(id = R.string.app_name),
-                Icons.Default.Menu
-            ){}
+            AppBar(
+                stringResource(id = R.string.app_name), Icons.Default.Menu
+            ) {}
         },
         backgroundColor = Color.LightGray,
         contentColor = MaterialTheme.colors.AppContentColor,
@@ -50,8 +55,16 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel(), navController: NavCon
     ) { paddingValue ->
         when (uiState) {
             is MovieUIStateModel.Loading -> LoadingScreen()
-            is MovieUIStateModel.Success -> MovieListScreen(allPopularMovies = uiState.data, paddingValue, navController)
-            is MovieUIStateModel.Error -> ShowSnackBar(errorMessage = stringResource(id = ExceptionHandler.parse(uiState.error)), scaffoldState)
+            is MovieUIStateModel.Success -> MovieListScreen(
+                allPopularMovies = uiState.data, paddingValue, navController
+            )
+            is MovieUIStateModel.Error -> ShowSnackBar(
+                message = stringResource(
+                    id = ExceptionHandler.parse(
+                        uiState.error
+                    )
+                ), scaffoldState
+            )
         }
     }
 }

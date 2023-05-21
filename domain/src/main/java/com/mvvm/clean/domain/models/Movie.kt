@@ -1,6 +1,8 @@
 package com.mvvm.clean.domain.models
 
-
+/***
+ * data class of Movie object
+ */
 data class Movie(
     val adult: Boolean,
     val backdrop_path: String,

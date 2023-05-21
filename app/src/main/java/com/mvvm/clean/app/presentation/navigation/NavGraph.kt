@@ -9,6 +9,11 @@ import androidx.navigation.navArgument
 import com.mvvm.clean.app.presentation.screen.home.HomeScreen
 import com.mvvm.clean.app.presentation.screen.movieDetail.MovieDetailScreen
 
+/**
+ * This function contains all the navigation related information like route screen, arguments to be shared etc.
+ *
+ * @param navController navController
+ */
 @Composable
 fun NavGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Screen.Home.route) {
@@ -20,8 +25,7 @@ fun NavGraph(navController: NavHostController) {
         })) { backStackEntry ->
             backStackEntry.arguments?.getInt("movieId")?.let { movieId ->
                 MovieDetailScreen(
-                    movieId = movieId,
-                    navController = navController
+                    movieId = movieId, navController = navController
                 )
             }
         }

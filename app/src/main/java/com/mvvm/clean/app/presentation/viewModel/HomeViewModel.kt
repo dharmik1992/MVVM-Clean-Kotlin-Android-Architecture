@@ -10,12 +10,22 @@ import kotlinx.coroutines.flow.StateFlow
 
 import javax.inject.Inject
 
+/**
+ * Sealed interface to hold state of movie listing screen
+ *
+ */
 sealed interface MovieUIStateModel {
     object Loading : MovieUIStateModel
     data class Error(val error: Throwable) : MovieUIStateModel
     data class Success(val data: List<Movie>) : MovieUIStateModel
 }
 
+/**
+ * ViewModel of movie list screen
+ *
+ * @property movieListUseCase use case to get popular movies
+ * @param coroutineContextProvider dispatcher
+ */
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     coroutineContextProvider: CoroutineContextProvider,
@@ -26,14 +36,21 @@ class HomeViewModel @Inject constructor(
     var popularMovieList: StateFlow<MovieUIStateModel> = _popularMovieList
 
 
-    override val coroutineExceptionHandler = CoroutineExceptionHandler { _ ,exception ->
+    /**
+     * Exception handler to handle error received in coroutine scope
+     */
+    override val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
         _popularMovieList.value = MovieUIStateModel.Error(exception)
     }
 
+    /**
+     * Function launches coroutine scope and requests movie list which is a flow object
+     *
+     */
     fun getPopularMovies() {
         _popularMovieList.value = MovieUIStateModel.Loading
         launchCoroutineIO {
-            movieListUseCase.invoke(Unit).collect() {
+            movieListUseCase.invoke(Unit).collect {
                 _popularMovieList.value = MovieUIStateModel.Success(it)
             }
         }

@@ -1,5 +1,8 @@
 package com.mvvm.clean.domain.models
 
+/***
+ * data class of Movie Detail object
+ */
 data class MovieDetail(
     val backdrop_path: String,
     val id: Int,

@@ -1,6 +1,5 @@
 package com.mvvm.clean.app.presentation.screen.movieDetail
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,6 +14,11 @@ import com.mvvm.clean.app.presentation.screen.ImageWithAnimation
 import com.mvvm.clean.app.presentation.screen.TextWithCustomStyle
 import com.mvvm.clean.domain.models.MovieDetail
 
+/**
+ * Composable Function which shows movie details screen based on data received
+ *
+ * @param movieDetail movie data
+ */
 @Composable
 fun MovieDetail(movieDetail: MovieDetail) {
     Column(
@@ -22,11 +26,16 @@ fun MovieDetail(movieDetail: MovieDetail) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
-        ImageWithAnimation(movieDetail.backdrop_path,false)
+        ImageWithAnimation(movieDetail.backdrop_path, false)
         MovieItemDetails(movieDetail)
     }
 }
 
+/**
+ * Composable function which shows some movie data on movie details screen
+ *
+ * @param movieDetail movie details
+ */
 @Composable
 fun MovieItemDetails(movieDetail: MovieDetail) {
     Column(

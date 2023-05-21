@@ -22,6 +22,13 @@ import com.mvvm.clean.app.presentation.viewModel.MovieDetailViewModel
 import com.mvvm.clean.app.ui.theme.AppContentColor
 import com.mvvm.clean.app.ui.theme.AppThemeColor
 
+/**
+ * Composable function which shows popular movie details based on the current UI state
+ *
+ * @param movieDetailViewModel viewModel Instance
+ * @param movieId movie ID
+ * @param navController navController
+ */
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MovieDetailScreen(
@@ -50,14 +57,18 @@ fun MovieDetailScreen(
             AppBar(stringResource(id = R.string.app_detail_screen_title), Icons.Default.ArrowBack) {
                 navController?.navigateUp()
             }
-        },
-        backgroundColor = Color.LightGray,
-        contentColor = MaterialTheme.colors.AppContentColor
+        }, backgroundColor = Color.LightGray, contentColor = MaterialTheme.colors.AppContentColor
     ) {
         when (uiState) {
             is MovieDetailUIStateModel.Loading -> LoadingScreen()
             is MovieDetailUIStateModel.Success -> MovieDetail(uiState.data)
-            is MovieDetailUIStateModel.Error -> ShowSnackBar(errorMessage = stringResource(id = ExceptionHandler.parse(uiState.error)), scaffoldState)
+            is MovieDetailUIStateModel.Error -> ShowSnackBar(
+                message = stringResource(
+                    id = ExceptionHandler.parse(
+                        uiState.error
+                    )
+                ), scaffoldState
+            )
         }
     }
 }

@@ -7,6 +7,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
+/**
+ * This file contains all the dependencies related to Presentation module here.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object PresentationModule {

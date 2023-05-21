@@ -24,11 +24,16 @@ import com.mvvm.clean.app.presentation.screen.TextWithMaterialStyle
 import com.mvvm.clean.app.ui.theme.ItemBackgroundColor
 import com.mvvm.clean.domain.models.Movie
 
+/**
+ * Composable function to display all popular movies
+ *
+ * @param allPopularMovies lis of all popular movies
+ * @param contentPaddingValues content padding values
+ * @param navController navController
+ */
 @Composable
 fun MovieListScreen(
-    allPopularMovies: List<Movie>,
-    contentPaddingValues: PaddingValues,
-    navController: NavController
+    allPopularMovies: List<Movie>, contentPaddingValues: PaddingValues, navController: NavController
 ) {
     LazyColumn(
         modifier = Modifier.padding(contentPaddingValues),
@@ -42,6 +47,12 @@ fun MovieListScreen(
     }
 }
 
+/**
+ * Composable function to display movie card for each movie object
+ *
+ * @param movie movie data
+ * @param onPopularMovieItemClick function call when movie item is clicked
+ */
 @Composable
 fun MovieListItem(movie: Movie?, onPopularMovieItemClick: () -> Unit) {
     Card(
@@ -62,13 +73,18 @@ fun MovieListItem(movie: Movie?, onPopularMovieItemClick: () -> Unit) {
                 .fillMaxWidth()
         ) {
             movie?.let {
-                ImageWithAnimation(movie.poster_path,true)
+                ImageWithAnimation(movie.poster_path, true)
                 MovieItemDetails(movie)
             }
         }
     }
 }
 
+/**
+ * Composable function to display movie details on the movie card
+ *
+ * @param movie movie data
+ */
 @Composable
 fun MovieItemDetails(movie: Movie) {
     Column(
@@ -79,8 +95,18 @@ fun MovieItemDetails(movie: Movie) {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
-        TextWithMaterialStyle(movie.original_title, MaterialTheme.typography.body1, 1, TextOverflow.Ellipsis, 4.dp)
-        TextWithMaterialStyle(movie.overview, MaterialTheme.typography.body2, 4, TextOverflow.Ellipsis, 10.dp)
-        TextWithCustomStyle(stringResource(id = R.string.text_imdb_rating) + movie.vote_average, Color.Black, 12.sp, 2.dp, FontWeight.Bold)
+        TextWithMaterialStyle(
+            movie.original_title, MaterialTheme.typography.body1, 1, TextOverflow.Ellipsis, 4.dp
+        )
+        TextWithMaterialStyle(
+            movie.overview, MaterialTheme.typography.body2, 4, TextOverflow.Ellipsis, 10.dp
+        )
+        TextWithCustomStyle(
+            stringResource(id = R.string.text_imdb_rating) + movie.vote_average,
+            Color.Black,
+            12.sp,
+            2.dp,
+            FontWeight.Bold
+        )
     }
 }

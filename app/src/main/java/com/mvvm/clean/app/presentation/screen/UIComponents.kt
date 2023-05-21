@@ -31,32 +31,35 @@ import com.mvvm.clean.app.ui.theme.AppContentColor
 import com.mvvm.clean.app.ui.theme.AppThemeColor
 import java.lang.Float
 
+/**
+ * Composable function which shows app bar based on the data received
+ *
+ * @param title app bar title
+ * @param icon app bar icon
+ * @param onIconClick higher order function on icon click
+ */
 @Composable
 fun AppBar(title: String, icon: ImageVector, onIconClick: () -> Unit) {
-    TopAppBar(
-        backgroundColor = MaterialTheme.colors.AppThemeColor,
-        navigationIcon = {
-            Icon(
-                icon,
-                contentDescription = "",
-                modifier = Modifier
-                    .padding(16.dp)
-                    .clickable{onIconClick.invoke()}
-            )
-        },
-        title = {
-            Text(
-                text = title,
-                style = TextStyle(
-                    color = MaterialTheme.colors.AppContentColor,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold
-                ),
-                modifier = Modifier.fillMaxWidth()
-            )
-        })
+    TopAppBar(backgroundColor = MaterialTheme.colors.AppThemeColor, navigationIcon = {
+        Icon(icon,
+            contentDescription = "",
+            modifier = Modifier
+                .padding(16.dp)
+                .clickable { onIconClick.invoke() })
+    }, title = {
+        Text(
+            text = title, style = TextStyle(
+                color = MaterialTheme.colors.AppContentColor,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            ), modifier = Modifier.fillMaxWidth()
+        )
+    })
 }
 
+/**
+ * Composable function to show loading progress bar
+ */
 @Composable
 fun LoadingScreen() {
     val progressValue = 0.75f
@@ -69,8 +72,7 @@ fun LoadingScreen() {
     )
 
     Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator(
             progress = progressAnimationValue,
@@ -83,15 +85,30 @@ fun LoadingScreen() {
     }
 }
 
+/**
+ * Composable function to show SnackBar based on the data received
+ *
+ * @param message message to be shown
+ * @param scaffoldState scaffoldState
+ */
 @Composable
-fun ShowSnackBar(errorMessage: String, scaffoldState: ScaffoldState) {
+fun ShowSnackBar(message: String, scaffoldState: ScaffoldState) {
     LaunchedEffect(Unit) {
         scaffoldState.snackbarHostState.showSnackbar(
-            message = errorMessage, duration = SnackbarDuration.Short
+            message = message, duration = SnackbarDuration.Short
         )
     }
 }
 
+/**
+ * Composable function to show Text based on custom values received
+ *
+ * @param title title
+ * @param color color
+ * @param fontSize size in sp
+ * @param spaceSize size in dp
+ * @param fontWeight fontWeight
+ */
 @Composable
 fun TextWithCustomStyle(
     title: String,
@@ -101,40 +118,45 @@ fun TextWithCustomStyle(
     fontWeight: FontWeight = FontWeight.Normal
 ) {
     Text(
-        text = title,
-        style = TextStyle(color = color, fontSize = fontSize, fontWeight = fontWeight)
+        text = title, style = TextStyle(color = color, fontSize = fontSize, fontWeight = fontWeight)
     )
     Spacer(modifier = Modifier.height(spaceSize))
 }
 
+/**
+ * Composable function to show Text based on material styles
+ *
+ * @param originalTitle title
+ * @param style material style
+ * @param maxLine max lines
+ * @param overflow overflow
+ * @param spaceSize size in dp
+ */
 @Composable
 fun TextWithMaterialStyle(
-    originalTitle: String,
-    style: TextStyle,
-    maxLine: Int,
-    overflow: TextOverflow,
-    spaceSize: Dp
+    originalTitle: String, style: TextStyle, maxLine: Int, overflow: TextOverflow, spaceSize: Dp
 ) {
     Text(
-        text = originalTitle,
-        style = style,
-        maxLines = maxLine,
-        overflow = overflow
+        text = originalTitle, style = style, maxLines = maxLine, overflow = overflow
     )
     Spacer(modifier = Modifier.height(spaceSize))
 }
 
+/**
+ * Composable function to show movie image based on orientation requirement
+ *
+ * @param imageUrl image path
+ * @param isVerticalImage is Vertical image required
+ */
 @Composable
 fun ImageWithAnimation(imageUrl: String, isVerticalImage: Boolean) {
     val painter = rememberAsyncImagePainter(BuildConfig.POSTER_URL + imageUrl)
 
     val transition by animateFloatAsState(
-        targetValue =
-        if (painter.state is AsyncImagePainter.State.Success) 1f else 0f
+        targetValue = if (painter.state is AsyncImagePainter.State.Success) 1f else 0f
     )
     Card(
-        elevation = 5.dp,
-        modifier = if (isVerticalImage) {
+        elevation = 5.dp, modifier = if (isVerticalImage) {
             Modifier
                 .padding(4.dp)
                 .width(120.dp)
@@ -146,14 +168,12 @@ fun ImageWithAnimation(imageUrl: String, isVerticalImage: Boolean) {
                 .fillMaxWidth()
         }
     ) {
-        Image(
-            painter = painter,
+        Image(painter = painter,
             contentDescription = "",
             modifier = Modifier
                 .scale(.8f + (.2f * transition))
                 .graphicsLayer { rotationX = (1f - transition) * 5f }
                 .alpha(Float.min(1f, transition / .2f)),
-            contentScale = ContentScale.Crop
-        )
+            contentScale = ContentScale.Crop)
     }
 }

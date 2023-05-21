@@ -7,18 +7,35 @@ import com.mvvm.clean.data.models.MovieEntity
 import com.mvvm.clean.data.repository.MovieCache
 import javax.inject.Inject
 
-
+/**
+ * Implementation class of MovieCache interface to get the data from local DB
+ *
+ * @property cacheDao dao instance
+ * @property movieCacheMapper mapper instance
+ * @property cacheSharedPreferenceHelper shared preference instance
+ */
 class MovieCacheImp @Inject constructor(
     private val cacheDao: CacheDao,
     private val movieCacheMapper: MovieCacheMapper,
     private val cacheSharedPreferenceHelper: CacheSharedPreferenceHelper
 ) : MovieCache {
+
+    /**
+     * Function returns popular movies from local db
+     *
+     * @return popular movies list
+     */
     override suspend fun getPopularMovies(): List<MovieEntity> {
         return cacheDao.getPopularMovies().map { cacheMovie ->
             movieCacheMapper.mapFromCached(cacheMovie)
         }
     }
 
+    /**
+     * Function to save movie list data into local db
+     *
+     * @param popularMovieList movie list
+     */
     override suspend fun saveMoviesInCache(popularMovieList: List<MovieEntity>) {
         cacheDao.addMovie(*popularMovieList.map {
             movieCacheMapper.mapToCache(it)

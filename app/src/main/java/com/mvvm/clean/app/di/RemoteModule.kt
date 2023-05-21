@@ -11,6 +11,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * This file contains all the dependencies related to Remote module here.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object RemoteModule {
@@ -23,13 +26,13 @@ object RemoteModule {
 
     @Provides
     @Singleton
-    fun provideAPIKey() : String{
+    fun provideAPIKey(): String {
         return BuildConfig.API_KEY
     }
 
     @Provides
     @Singleton
-    fun provideMovieRemote(movieRemoteImp: MovieRemoteImp) : MovieRemote{
+    fun provideMovieRemote(movieRemoteImp: MovieRemoteImp): MovieRemote {
         return movieRemoteImp
     }
 }
