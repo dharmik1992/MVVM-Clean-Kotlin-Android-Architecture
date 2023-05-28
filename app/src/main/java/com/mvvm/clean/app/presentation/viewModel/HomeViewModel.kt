@@ -50,7 +50,7 @@ class HomeViewModel @Inject constructor(
     fun getPopularMovies() {
         _popularMovieList.value = MovieUIStateModel.Loading
         launchCoroutineIO {
-            movieListUseCase.invoke(Unit).collect {
+            movieListUseCase(Unit).collect {
                 _popularMovieList.value = MovieUIStateModel.Success(it)
             }
         }

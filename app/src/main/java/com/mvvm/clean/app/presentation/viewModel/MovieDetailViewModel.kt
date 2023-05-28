@@ -51,7 +51,7 @@ class MovieDetailViewModel @Inject constructor(
     fun getMovieDetail(movieId: Int) {
         _movieDetail.value = MovieDetailUIStateModel.Loading
         launchCoroutineIO {
-            movieDetailsByIdUseCase.invoke(movieId).collect() {
+            movieDetailsByIdUseCase(movieId).collect {
                 _movieDetail.value = MovieDetailUIStateModel.Success(it)
             }
         }

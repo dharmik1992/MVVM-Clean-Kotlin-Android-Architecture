@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.mvvm.clean.app.R
@@ -39,7 +40,7 @@ fun MovieDetailScreen(
 
     val systemUiController = rememberSystemUiController()
     val systemBarColor = MaterialTheme.colors.AppThemeColor
-    val uiState = movieDetailViewModel.movieDetail.collectAsState().value
+    val uiState = movieDetailViewModel.movieDetail.collectAsStateWithLifecycle().value
     val scaffoldState: ScaffoldState = rememberScaffoldState()
 
     SideEffect {
