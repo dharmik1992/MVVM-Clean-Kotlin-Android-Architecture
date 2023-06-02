@@ -9,17 +9,12 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.mvvm.clean.app.R
 import com.mvvm.clean.app.presentation.navigation.Screen
 import com.mvvm.clean.app.presentation.screen.ImageWithAnimation
-import com.mvvm.clean.app.presentation.screen.TextWithCustomStyle
+import com.mvvm.clean.app.presentation.screen.RatingComponent
 import com.mvvm.clean.app.presentation.screen.TextWithMaterialStyle
 import com.mvvm.clean.app.ui.theme.ItemBackgroundColor
 import com.mvvm.clean.domain.models.Movie
@@ -67,7 +62,7 @@ fun MovieListItem(movie: Movie?, onPopularMovieItemClick: () -> Unit) {
     ) {
         Row(
             horizontalArrangement = Arrangement.Start,
-            verticalAlignment = Alignment.Top,
+            verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .height(IntrinsicSize.Max)
                 .fillMaxWidth()
@@ -101,12 +96,6 @@ fun MovieItemDetails(movie: Movie) {
         TextWithMaterialStyle(
             movie.overview, MaterialTheme.typography.body2, 4, TextOverflow.Ellipsis, 10.dp
         )
-        TextWithCustomStyle(
-            stringResource(id = R.string.text_imdb_rating) + movie.vote_average,
-            Color.Black,
-            12.sp,
-            2.dp,
-            FontWeight.Bold
-        )
+        RatingComponent(rating = ""+ movie.vote_average)
     }
 }

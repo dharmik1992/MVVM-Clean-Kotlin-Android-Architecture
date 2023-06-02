@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -27,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import com.mvvm.clean.app.BuildConfig
+import com.mvvm.clean.app.R
 import com.mvvm.clean.app.ui.theme.AppContentColor
 import com.mvvm.clean.app.ui.theme.AppThemeColor
 import java.lang.Float
@@ -164,7 +166,7 @@ fun ImageWithAnimation(imageUrl: String, isVerticalImage: Boolean) {
 
         } else {
             Modifier
-                .height(300.dp)
+                .height(350.dp)
                 .fillMaxWidth()
         }
     ) {
@@ -175,5 +177,50 @@ fun ImageWithAnimation(imageUrl: String, isVerticalImage: Boolean) {
                 .graphicsLayer { rotationX = (1f - transition) * 5f }
                 .alpha(Float.min(1f, transition / .2f)),
             contentScale = ContentScale.Crop)
+    }
+}
+
+/**
+ * Composable function to show movie rating with its respective drawable icon
+ *
+ * @param rating movie rating
+ */
+@Composable
+fun RatingComponent(rating: String) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_baseline_star_rate),
+            contentDescription = null,
+            modifier = Modifier
+                .padding(
+                    end = 2.dp,
+                )
+        )
+        Text(text = rating, style = MaterialTheme.typography.body2)
+    }
+}
+
+/**
+ * Composable function to display movie release date with its respective drawable icon
+ *
+ * @param releaseDate movie release date
+ */
+@Composable
+fun ReleaseDateComponent(releaseDate: String) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_baseline_date_range_24),
+            contentDescription = null,
+            modifier = Modifier.padding(
+                end = 2.dp,
+            )
+        )
+        Text(text = releaseDate, style = MaterialTheme.typography.body2)
     }
 }

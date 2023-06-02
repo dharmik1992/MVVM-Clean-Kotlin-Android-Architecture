@@ -5,12 +5,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mvvm.clean.app.R
 import com.mvvm.clean.app.presentation.screen.ImageWithAnimation
+import com.mvvm.clean.app.presentation.screen.RatingComponent
+import com.mvvm.clean.app.presentation.screen.ReleaseDateComponent
 import com.mvvm.clean.app.presentation.screen.TextWithCustomStyle
 import com.mvvm.clean.domain.models.MovieDetail
 
@@ -46,10 +46,13 @@ fun MovieItemDetails(movieDetail: MovieDetail) {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
+        Spacer(modifier = Modifier.height(16.dp))
         TextWithCustomStyle(movieDetail.original_title, Color.Black, 24.sp, 2.dp, FontWeight.Bold)
-        TextWithCustomStyle(movieDetail.tagline, Color.Black, 13.sp, 6.dp,FontWeight.Bold)
-        TextWithCustomStyle(movieDetail.status + " - " + movieDetail.release_date, Color.Black, 14.sp, 14.dp,FontWeight.Bold)
+        TextWithCustomStyle(movieDetail.tagline, Color.Black, 13.sp, 8.dp, FontWeight.Bold)
+        ReleaseDateComponent(releaseDate = movieDetail.release_date)
+        Spacer(modifier = Modifier.height(6.dp))
+        RatingComponent(rating = "" + movieDetail.vote_average)
+        Spacer(modifier = Modifier.height(16.dp))
         TextWithCustomStyle(movieDetail.overview, Color.Black, 16.sp, 10.dp)
-        TextWithCustomStyle(stringResource(id = R.string.text_avg_rating) + movieDetail.vote_average, Color.Black, 14.sp, 4.dp, FontWeight.Bold)
     }
 }
